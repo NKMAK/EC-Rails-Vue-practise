@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
           { algorithm: 'HS256' }    # 暗号化アルゴリズム
         )
         # トークンからユーザーを特定 このフォルダ配下のコントローラーで@current_userを使えるようにする
-        @current_user = User.find_by(uuid: decoded[0]['user_uuid'])
+        @current_user = User.find_by(user_uuid: decoded[0]['user_uuid'])
       rescue JWT::DecodeError
         render json: { error: 'Invalid token' }, status: :forbidden
       end
