@@ -1,7 +1,7 @@
 class Api::ProductController < ApplicationController
   def create
-    product_params =  params.require(:product).permit(
-      :title, :description, :price, :stock_quantity,images: []
+    product_params = params.require(:product).permit(
+      :title, :description, :price, :stock_quantity, :active, :images
     )
     product = Product.new(product_params)
 
