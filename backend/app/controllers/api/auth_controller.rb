@@ -57,7 +57,7 @@ class Api::AuthController < ApplicationController
     if refresh_token
       # 新しいJWTトークン生成
       jwt = generate_jwt(user)
-      refresh_token=db_update_refresh_token(refresh_token)
+      refresh_token = db_update_refresh_token(refresh_token)
       render json: { access_token: jwt,
         refresh_token:refresh_token, 
         user_uuid:user.user_uuid 
