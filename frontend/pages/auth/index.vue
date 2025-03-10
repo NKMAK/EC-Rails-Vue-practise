@@ -3,17 +3,21 @@ import { ref } from "vue";
 import LoginForm from "./_components/LoginForm.vue";
 import SignupForm from "./_components/SignupForm.vue";
 import type { LoginData, SignupData } from "../../model/model";
+import { signup } from "~/service/auth/signup";
+import { login } from "~/service/auth/login";
 
 onMounted(() => {});
 
 const tab = ref("login");
 
-const handleLogin = (loginData: LoginData) => {
+const handleLogin = async (loginData: LoginData) => {
   console.log("ログイン処理", loginData);
+  const res = await login(loginData);
 };
 
-const handleRegister = (registerData: SignupData) => {
-  console.log("新規登録処理", registerData);
+const handleRegister = async (signupData: SignupData) => {
+  console.log("新規登録処理", signupData);
+  const response = await signup(signupData);
 };
 </script>
 
