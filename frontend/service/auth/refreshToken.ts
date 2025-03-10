@@ -1,4 +1,4 @@
-export const refreshToken = async (uuid: string) => {
+export const refreshToken = async (uuid: string): Promise<boolean> => {
   const runtimeConfig = useRuntimeConfig();
   try {
     const response = await fetch(
@@ -17,7 +17,7 @@ export const refreshToken = async (uuid: string) => {
       }
     );
     const data = await response.json();
-    console.log(data);
+
     return true;
   } catch {
     return false;
