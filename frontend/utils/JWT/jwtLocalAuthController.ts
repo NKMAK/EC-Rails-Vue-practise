@@ -6,7 +6,7 @@ interface CustomJwtPayload extends JwtPayload {
   user_uuid: string;
 }
 
-export const jwtLocalAuthController = async () => {
+export const jwtLocalAuthController = async (): Promise<boolean> => {
   //トークンが有効であればtrueを返す
   const jwtToken = getAccessToken();
   if (jwtToken == null) return false;
