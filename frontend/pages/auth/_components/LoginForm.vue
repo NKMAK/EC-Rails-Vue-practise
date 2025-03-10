@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { LoginData } from "../_models/model";
+import type { LoginData } from "../../../model/model";
 import { validationRules } from "../_function/validation";
 
 const emit = defineEmits<{

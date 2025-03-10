@@ -2,12 +2,9 @@
 import { ref } from "vue";
 import LoginForm from "./_components/LoginForm.vue";
 import SignupForm from "./_components/SignupForm.vue";
-import type { LoginData, SignupData } from "./_models/model";
-import { signup } from "~/service/auth/auth";
+import type { LoginData, SignupData } from "../../model/model";
 
-onMounted(() => {
-  signup();
-});
+onMounted(() => {});
 
 const tab = ref("login");
 
