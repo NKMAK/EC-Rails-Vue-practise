@@ -15,6 +15,7 @@ export const signup = async (signupData: SignupData): Promise<boolean> => {
           password: signupData.password,
         },
       }),
+      credentials: "include",
     });
     const data = await response.json();
     console.log(data);
