@@ -10,10 +10,9 @@ export const jwtLocalAuthController = async (): Promise<boolean> => {
   //トークンが有効であればtrueを返す
   const jwtToken = getAccessToken();
   if (jwtToken == null) return false;
-  console.log(jwtToken);
+
   try {
     const decoded = jwtDecode<CustomJwtPayload>(jwtToken);
-    console.log(decoded);
 
     if (decoded.exp == null) return false;
 
@@ -24,7 +23,7 @@ export const jwtLocalAuthController = async (): Promise<boolean> => {
       return resFlag;
     }
   } catch (error) {
-    console.error("JWTのデコードに失敗しました:", error);
+    console.error("ログイン処理に失敗しました:", error);
     return false;
   }
 };
