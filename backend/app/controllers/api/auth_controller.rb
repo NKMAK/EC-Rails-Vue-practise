@@ -44,17 +44,16 @@ class Api::AuthController < ApplicationController
   end
 
   def refresh_token
-    token_params = params.require(:user).permit(:user_uuid, :refresh_token)
+    token_params = params.require(:user).permit(:user_uuid)
     user = User.find_by(user_uuid: token_params[:user_uuid])
 
     return render json: { error: 'User not found' }, status: :not_found unless user
-    return render json: { error: 'Refresh token is required' }, status: :bad_request if token_params[:refresh_token].blank?
-
+    refresh_token = cookies[:refresh_token]
   
     # トークンと有効期限の検証
     refresh_token = RefreshToken.find_by(
       user_uuid: user.user_uuid,
-      token: token_params[:refresh_token],
+      token: refresh_token,
       expires_at: Time.current..
     )
   
@@ -62,7 +61,6 @@ class Api::AuthController < ApplicationController
       # 新しいJWTトークン生成
       jwt = generate_jwt(user)
       refresh_token = db_update_refresh_token(refresh_token)
-
       createCookies(jwt , refresh_token)
 
       render json: { access_token: jwt,
