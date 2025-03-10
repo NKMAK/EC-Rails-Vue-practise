@@ -8,6 +8,11 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"],
   },
+  runtimeConfig: {
+    public: {
+      baseApiUrl: "http://localhost:8000/api/",
+    },
+  },
   modules: [
     (_options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) => {
