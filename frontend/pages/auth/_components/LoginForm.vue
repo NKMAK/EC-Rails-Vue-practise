@@ -27,7 +27,6 @@ const login = () => {
         label="メールアドレス"
         prepend-icon="mdi-email"
         type="email"
-        required
         :rules="[validationRules.required, validationRules.email]"
       />
 
@@ -37,7 +36,6 @@ const login = () => {
         prepend-icon="mdi-lock"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
-        required
         :rules="[validationRules.required]"
         @click:append="showPassword = !showPassword"
       />
