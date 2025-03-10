@@ -16,7 +16,7 @@ class Api::ProductController < ApplicationController
         end
       end
 
-      render json: {product: product, product_image: product.product_images}, status: :created  
+      render json: {product: product, product_image: product.product_images}, status: :created
     else
       render json: product.errors, status: :unprocessable_entity
     end

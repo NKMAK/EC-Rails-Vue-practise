@@ -1,11 +1,12 @@
 class ApplicationController < ActionController::API
+  include ActionController::Cookies
   before_action :authenticate_jwt  # 全てのアクションの前に認証を実行
   private 
   
   def authenticate_jwt
-    header = request.headers['Authorization']  # ヘッダーからトークンを取得
-    if header
-      token = header.split(' ').last  # "Bearer xxxxx" から "xxxxx" 部分を取得
+    token = cookies[:access_token]
+    p token
+    if token
       begin
         decoded = JWT.decode(
           token,                    # 検証するトークン
