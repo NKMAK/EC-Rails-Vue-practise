@@ -10,6 +10,7 @@ const product = ref<ProductData>({
   price: 0,
   stock_quantity: 0,
   active: true,
+  images: [],
 });
 
 const submitForm = () => {
@@ -23,6 +24,7 @@ const resetForm = () => {
     price: 0,
     stock_quantity: 0,
     active: true,
+    images: [],
   };
 };
 </script>
@@ -80,6 +82,18 @@ const resetForm = () => {
               ></v-text-field>
             </v-col>
           </v-row>
+          <v-col cols="12">
+            <v-file-input
+              v-model="product.images"
+              label="複数の画像を選択できます"
+              multiple
+              prepend-icon="mdi-camera"
+              accept="image/*"
+              variant="outlined"
+              :show-size="true"
+              chips
+            ></v-file-input>
+          </v-col>
           <v-col cols="12">
             <v-switch
               v-model="product.active"

@@ -15,4 +15,5 @@ export interface ProductData {
   price: number;
   stock_quantity: number;
   active: boolean;
+  images: File[];
 }
