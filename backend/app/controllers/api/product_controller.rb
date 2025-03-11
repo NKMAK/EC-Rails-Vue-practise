@@ -27,9 +27,9 @@ class Api::ProductController < ApplicationController
     limit = product_params[:limit].to_i
     offset = product_params[:offset].to_i
 
-    product_total_num = Product.count
-    product_data = Product.where(active: true).order(created_at: :desc).offset(offset).limit(limit)
+    product_total_num = Product.where(active: true).count
+    product_data = Product.where(active: true).includes(:product_images).order(created_at: :desc).offset(offset).limit(limit)
 
-    render json: { product_data: product_data, total: product_total_num }, status: 200
+    render json: {  product_data: product_data.as_json(include: :product_images) , total: product_total_num }, status: 200
   end
 end
