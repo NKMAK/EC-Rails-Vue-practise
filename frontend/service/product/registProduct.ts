@@ -18,11 +18,14 @@ export const registProduct = async (
     });
 
     // リクエスト送信
-    const response = await fetch(runtimeConfig.public.baseApiUrl + "product", {
-      method: "POST",
-      body: formData,
-      credentials: "include",
-    });
+    const response = await fetch(
+      runtimeConfig.public.baseApiUrl + "productRegist",
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      }
+    );
 
     const data = await response.json();
     console.log(data);

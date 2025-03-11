@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     post "login" => "auth#login"
     post "refresh-token" => "auth#refresh_token"
 
-    post "product" => "product#create" 
+    post "productRegist" => "product#create" 
+
   end
 end
