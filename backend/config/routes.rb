@@ -11,6 +11,6 @@ Rails.application.routes.draw do
     post "refresh-token" => "auth#refresh_token"
 
     post "productRegist" => "product#create" 
-
+    get "productList" => "product#get"
   end
 end
