@@ -1,5 +1,5 @@
 import { jwtDecode, type JwtPayload } from "jwt-decode";
-import { getAccessToken } from "../cokkie/getAccessToken";
+import { getAccessToken } from "../cookie/getAccessToken";
 import { refreshToken } from "~/service/auth/refreshToken";
 
 interface CustomJwtPayload extends JwtPayload {
