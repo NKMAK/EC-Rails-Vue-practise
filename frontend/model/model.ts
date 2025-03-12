@@ -30,6 +30,10 @@ interface ProductImageData {
 export interface GetProductData {
   id: number;
   title: string;
+  description: string;
   price: string;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
   product_images: ProductImageData[];
 }
