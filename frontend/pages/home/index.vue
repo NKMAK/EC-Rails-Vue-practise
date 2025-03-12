@@ -2,18 +2,39 @@
 import { gainProduct } from "~/service/product/gainProduct";
 import ProductCard from "./_components/ProductCard.vue";
 import type { GetProductData } from "~/model/model";
-const gainProductRef = ref<GetProductData[] | null>();
-// サンプル商品データ
 
-onMounted(async () => {
-  const response = await gainProduct(10, 0);
-  gainProductRef.value = response;
+const gainProductRef = ref<GetProductData[] | null>(null);
+const totalProductCntRef = ref<number>(0);
+
+const currentPageRef = ref<number>(1);
+const itemsPerPage = 12;
+const totalPages = computed(() =>
+  Math.ceil(totalProductCntRef.value / itemsPerPage)
+);
+
+const fetchProducts = async (page: number = 1) => {
+  const offset = (page - 1) * itemsPerPage;
+
+  const { product, total } = await gainProduct(itemsPerPage, offset);
+  gainProductRef.value = product;
+  totalProductCntRef.value = total;
+};
+
+// ページ変更時のハンドラ
+const handlePageChange = (page: number) => {
+  currentPageRef.value = page;
+  fetchProducts(page);
+};
+
+// コンポーネントのマウント時に商品データを取得
+onMounted(() => {
+  fetchProducts();
 });
 </script>
 
 <template>
   <v-container class="pa-2">
-    <v-card elevation="4">
+    <v-card elevation="4" class="mb-4">
       <v-row dense justify="center">
         <v-col
           v-for="(card, i) in gainProductRef || []"
@@ -28,5 +49,15 @@ onMounted(async () => {
         </v-col>
       </v-row>
     </v-card>
+
+    <!-- ページネーション -->
+    <div class="d-flex justify-center mt-4">
+      <v-pagination
+        v-model="currentPageRef"
+        :length="totalPages"
+        :total-visible="7"
+        @update:model-value="handlePageChange"
+      ></v-pagination>
+    </div>
   </v-container>
 </template>
