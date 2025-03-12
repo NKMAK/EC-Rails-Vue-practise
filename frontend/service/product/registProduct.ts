@@ -1,7 +1,7 @@
-import type { ProductData } from "~/model/model";
+import type { PostProductData } from "~/model/model";
 
 export const registProduct = async (
-  productData: ProductData
+  productData: PostProductData
 ): Promise<boolean> => {
   const runtimeConfig = useRuntimeConfig();
   try {
