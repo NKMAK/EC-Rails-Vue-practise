@@ -1,9 +1,13 @@
 import type { GetProductData } from "~/model/model";
+interface ProductResponseData {
+  product: GetProductData[];
+  total: number;
+}
 
 export const gainProduct = async (
   limit: number,
   offset: number
-): Promise<GetProductData[] | null> => {
+): Promise<ProductResponseData> => {
   const runtimeConfig = useRuntimeConfig();
   try {
     const url = new URL(
@@ -23,8 +27,8 @@ export const gainProduct = async (
     });
     const data = await response.json();
     console.log(data);
-    return data.product_data;
+    return { product: data.product_data, total: data.total };
   } catch (e) {
-    return null;
+    return { product: [], total: 0 };
   }
 };
