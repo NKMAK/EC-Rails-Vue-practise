@@ -77,7 +77,7 @@ class Api::AuthController < ApplicationController
     cookies[:access_token] = {
       value: jwt,
       httponly: false,
-      expires: 24.hour.from_now,
+      expires: 30.days.from_now,
       same_site: :lax
     }
 
