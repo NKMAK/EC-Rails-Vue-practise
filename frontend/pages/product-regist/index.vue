@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { validationRules } from "./_function/validationRules";
-import type { ProductData } from "../../model/model";
+import type { PostProductData } from "../../model/model";
 import { registProduct } from "~/service/product/registProduct";
 
-const product = ref<ProductData>({
+const product = ref<PostProductData>({
   title: "",
   description: "",
   price: 0,
