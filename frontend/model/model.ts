@@ -9,11 +9,27 @@ export interface SignupData {
   password: string;
 }
 
-export interface ProductData {
+export interface PostProductData {
   title: string;
   description: string;
   price: number;
   stock_quantity: number;
   active: boolean;
   images: File[];
+}
+
+interface ProductImageData {
+  id: number;
+  product_id: number;
+  image: {
+    url: string;
+  };
+  display_order: number;
+}
+
+export interface GetProductData {
+  id: number;
+  title: string;
+  price: string;
+  product_images: ProductImageData[];
 }
