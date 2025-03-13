@@ -32,4 +32,12 @@ class Api::ProductController < ApplicationController
 
     render json: {  product_data: product_data.as_json(include: :product_images) , total: product_total_num }, status: 200
   end
+
+  def one_get
+    product_id = params[:id] 
+    id = product_id.to_i
+    product_data = Product.find(id)
+
+    render json: product_data, status: 200
+  end
 end
