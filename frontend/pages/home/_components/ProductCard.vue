@@ -15,9 +15,10 @@ onMounted(() => {
 });
 
 const cardClick = async () => {
+  const id = Number(props.product.id);
   await navigateTo({
     name: "product-id",
-    params: { id: 10 },
+    params: { id },
   });
 };
 </script>
