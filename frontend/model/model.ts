@@ -18,7 +18,7 @@ export interface PostProductData {
   images: File[];
 }
 
-interface ProductImageData {
+export interface ProductImageData {
   id: number;
   product_id: number;
   image: {
@@ -32,6 +32,7 @@ export interface GetProductData {
   title: string;
   description: string;
   price: string;
+  stock_quantity: number;
   active: boolean;
   created_at: string;
   updated_at: string;
