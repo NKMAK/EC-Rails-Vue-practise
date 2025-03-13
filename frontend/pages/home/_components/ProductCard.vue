@@ -13,10 +13,22 @@ onMounted(() => {
     currency: "JPY",
   }).format(Number(props.product.price));
 });
+
+const cardClick = async () => {
+  await navigateTo({
+    name: "product-id",
+    params: { id: 10 },
+  });
+};
 </script>
 
 <template>
-  <v-card max-width="400" class="mx-auto" elevation="2">
+  <v-card
+    max-width="400"
+    class="mx-auto"
+    elevation="2"
+    @click.prevent="cardClick"
+  >
     <v-img
       :src="getDisplayImageUrl(props.product)"
       height="200"
