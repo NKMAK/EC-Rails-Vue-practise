@@ -36,7 +36,7 @@ class Api::ProductController < ApplicationController
   def one_get
     product_id = params[:id] 
     id = product_id.to_i
-    product_data = Product.find(id)
+    product_data = Product.where(active: true).find_by(id: id)
 
     render json: product_data, status: 200
   end
