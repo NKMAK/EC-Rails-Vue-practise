@@ -36,8 +36,8 @@ class Api::ProductController < ApplicationController
   def one_get
     product_id = params[:id] 
     id = product_id.to_i
-    product_data = Product.where(active: true).find_by(id: id)
+    product_data = Product.where(active: true).includes(:product_images).find_by(id: id)
 
-    render json: product_data, status: 200
+    render json: product_data.as_json(include: :product_images) , status: 200
   end
 end
