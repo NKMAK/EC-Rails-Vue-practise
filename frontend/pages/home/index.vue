@@ -20,13 +20,11 @@ const fetchProducts = async (page: number = 1) => {
   totalProductCntRef.value = total;
 };
 
-// ページ変更時のハンドラ
 const handlePageChange = (page: number) => {
   currentPageRef.value = page;
   fetchProducts(page);
 };
 
-// コンポーネントのマウント時に商品データを取得
 onMounted(() => {
   fetchProducts();
 });
@@ -50,7 +48,6 @@ onMounted(() => {
       </v-row>
     </v-card>
 
-    <!-- ページネーション -->
     <div class="d-flex justify-center mt-4">
       <v-pagination
         v-model="currentPageRef"

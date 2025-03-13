@@ -12,5 +12,6 @@ Rails.application.routes.draw do
 
     post "productRegist" => "product#create" 
     get "productList" => "product#get"
+    get "productOneGet" => "product#one_get"
   end
 end
