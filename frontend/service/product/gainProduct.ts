@@ -1,6 +1,6 @@
 import type { GetProductData } from "~/model/model";
 interface ProductResponseData {
-  product: GetProductData[];
+  product_data: GetProductData[];
   total: number;
 }
 
@@ -10,25 +10,24 @@ export const gainProduct = async (
 ): Promise<ProductResponseData> => {
   const runtimeConfig = useRuntimeConfig();
   try {
-    const url = new URL(
-      runtimeConfig.public.baseApiUrl +
-        "productList?" +
-        `product[limit]=${limit}` +
-        `&product[offset]=${offset}`
-    );
+    const urlString = `${runtimeConfig.public.baseApiUrl}productList?product[limit]=${limit}&product[offset]=${offset}`;
+    const token = useCookie("access_token");
 
-    const response = await fetch(url, {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const requestHeaders: HeadersInit = {
+      "Content-Type": "application/json",
+    };
 
+    if (token) {
+      requestHeaders["Cookie"] = "access_token=" + `${token.value}`;
+    }
+    const { data, error } = await useFetch<ProductResponseData>(urlString, {
+      method: "GET",
+      headers: requestHeaders,
       credentials: "include",
     });
-    const data = await response.json();
-    console.log(data);
-    return { product: data.product_data, total: data.total };
+
+    return { product_data: data.value!.product_data, total: data.value!.total };
   } catch (e) {
-    return { product: [], total: 0 };
+    return { product_data: [], total: 0 };
   }
 };
