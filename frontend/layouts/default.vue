@@ -1,9 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import TopBar from "../components/TopBar.vue";
+</script>
 
 <template>
   <v-app>
     <div id="layout">
-      <p>test</p>
+      <TopBar />
       <v-main>
         <slot />
       </v-main>
