@@ -8,14 +8,12 @@ const route = useRoute();
 const productRef = ref<GetProductData | null>(null);
 const priseRef = ref<string>("");
 
-onMounted(async () => {
-  const res = await gainOneProduct(Number(route.params.id));
-  productRef.value = res;
-  priseRef.value = Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(Number(productRef.value!.price));
-});
+const res = await gainOneProduct(Number(route.params.id));
+productRef.value = res;
+priseRef.value = Intl.NumberFormat("ja-JP", {
+  style: "currency",
+  currency: "JPY",
+}).format(Number(productRef.value!.price));
 </script>
 
 <template>

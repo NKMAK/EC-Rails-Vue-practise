@@ -5,21 +5,24 @@ export const gainOneProduct = async (
 ): Promise<GetProductData | null> => {
   const runtimeConfig = useRuntimeConfig();
   try {
-    const url = new URL(
-      runtimeConfig.public.baseApiUrl + "productOneGet?" + `id=${id}`
-    );
+    const url = `${runtimeConfig.public.baseApiUrl}productOneGet?id=${id}`;
+    const token = useCookie("access_token");
+    const requestHeaders: HeadersInit = {
+      "Content-Type": "application/json",
+    };
 
-    const response = await fetch(url, {
+    if (token) {
+      requestHeaders["Cookie"] = "access_token=" + `${token.value}`;
+    }
+
+    const { data, error } = await useFetch<GetProductData>(url, {
       method: "get",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: requestHeaders,
 
       credentials: "include",
     });
-    const data = await response.json();
-    console.log(data);
-    return data;
+
+    return data.value;
   } catch (e) {
     return null;
   }
