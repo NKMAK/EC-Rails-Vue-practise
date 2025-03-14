@@ -3,7 +3,7 @@ import { gainProduct } from "~/service/product/gainProduct";
 import ProductCard from "./_components/ProductCard.vue";
 import type { GetProductData } from "~/model/model";
 
-const gainProductRef = ref<GetProductData[] | null>(null);
+const gainProductRef = ref<GetProductData[]>([]);
 const totalProductCntRef = ref<number>(0);
 
 const currentPageRef = ref<number>(1);
@@ -15,19 +15,15 @@ const totalPages = computed(() =>
 const fetchProducts = async (page: number = 1) => {
   const offset = (page - 1) * itemsPerPage;
 
-  const { product, total } = await gainProduct(itemsPerPage, offset);
-  gainProductRef.value = product;
+  const { product_data, total } = await gainProduct(itemsPerPage, offset);
+  gainProductRef.value = product_data;
   totalProductCntRef.value = total;
 };
-
+await fetchProducts(1);
 const handlePageChange = (page: number) => {
   currentPageRef.value = page;
   fetchProducts(page);
 };
-
-onMounted(() => {
-  fetchProducts();
-});
 </script>
 
 <template>
@@ -43,7 +39,7 @@ onMounted(() => {
           lg="3"
           class="pa-3 pb-6 pt-6"
         >
-          <ProductCard v-if="gainProductRef" :product="gainProductRef[i]" />
+          <ProductCard :product="card" />
         </v-col>
       </v-row>
     </v-card>
