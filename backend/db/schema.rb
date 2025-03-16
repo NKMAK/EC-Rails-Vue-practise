@@ -14,15 +14,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_16_025455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cart_itemes", force: :cascade do |t|
+  create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity", default: 1
     t.decimal "price", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cart_id"], name: "index_cart_itemes_on_cart_id"
-    t.index ["product_id"], name: "index_cart_itemes_on_product_id"
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -76,8 +76,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_16_025455) do
     t.index ["user_uuid"], name: "index_users_on_user_uuid", unique: true
   end
 
-  add_foreign_key "cart_itemes", "carts"
-  add_foreign_key "cart_itemes", "products"
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users", column: "user_uuid", primary_key: "user_uuid"
   add_foreign_key "refresh_tokens", "users", column: "user_uuid", primary_key: "user_uuid"
 end
