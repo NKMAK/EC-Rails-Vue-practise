@@ -1,2 +1,0 @@
-class CreateCartIteme < ApplicationRecord
-end
