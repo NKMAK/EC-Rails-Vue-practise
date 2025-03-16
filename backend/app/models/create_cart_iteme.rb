@@ -1,0 +1,2 @@
+class CreateCartIteme < ApplicationRecord
+end
