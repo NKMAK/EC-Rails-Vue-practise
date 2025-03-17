@@ -46,6 +46,9 @@ class Api::CartController < ApplicationController
   def get
     product_cart = @current_user.carts.find_by(active: true)
     if product_cart
+      if product_cart.cart_items.empty?
+        return render json: {cart: nil, sucess: true, text: "cart is empty"}, status: :ok
+      end
       cart_items_with_images = product_cart.cart_items.map do |item|
         item_json = item.as_json
         item_json['product_title'] = item.product.title
