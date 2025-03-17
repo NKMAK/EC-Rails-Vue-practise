@@ -24,7 +24,7 @@ class Api::CartController < ApplicationController
       cart_item.quantity += quantity
 
       if cart_item.save
-        return render json:{sucess: true, text: "quanity change", cart: product_cart.as_json(include: :cart_items)}, status: :ok
+        return render json:{sucess: true, text: "quanity change"}, status: :ok
       else
         return render json: {sucess: false, text: cart_item.errors}, status: :unprocessable_entity
       end
@@ -36,10 +36,19 @@ class Api::CartController < ApplicationController
       )
 
       if cart_item.save
-        return render json:{sucess: true, text: "new create", cart: product_cart.as_json(include: :cart_items)}, status: :ok
+        return render json:{sucess: true, text: "new create"}, status: :ok
       else
         return render json: {sucess: false, text: cart_item.errors}, status: :unprocessable_entity
       end
+    end
+  end
+
+  def get
+    product_cart = @current_user.carts.find_by(active: true)
+    if product_cart
+      render json:{cart: product_cart.as_json(include: :cart_items)}, status: :ok
+    else
+      render json: {cart: nil}, status: :ok
     end
   end
 end

@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     get "productOneGet" => "product#one_get"
 
     post "addCart" => "cart#add"
+    get "getCart" => "cart#get"
   end
 end
