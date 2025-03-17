@@ -1,6 +1,6 @@
 class CartItem < ApplicationRecord
   belongs_to :cart
-  belongs_to :product
+  belongs_to :product, foreign_key: 'product_id', primary_key: 'id'
 
   after_save :update_cart_total
 

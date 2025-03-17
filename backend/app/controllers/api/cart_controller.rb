@@ -46,9 +46,26 @@ class Api::CartController < ApplicationController
   def get
     product_cart = @current_user.carts.find_by(active: true)
     if product_cart
-      render json:{cart: product_cart.as_json(include: :cart_items)}, status: :ok
+      cart_items_with_images = product_cart.cart_items.map do |item|
+        item_json = item.as_json
+        item_json['product_title'] = item.product.title
+        item_json['product_images'] = item.product.product_images.map do |image|
+          { 
+            id: image.id,
+            display_order: image.display_order,
+            image_url: image.image.url
+          }
+        end
+        item_json
+      end
+      
+      render json: {
+        cart: product_cart.as_json.merge(cart_items: cart_items_with_images)
+      }, status: :ok
     else
       render json: {cart: nil}, status: :ok
     end
   end
+
+
 end
