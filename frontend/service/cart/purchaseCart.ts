@@ -1,5 +1,5 @@
 interface Response {
-  sucess: boolean;
+  success: boolean;
   text: string;
 }
 
@@ -17,6 +17,6 @@ export const purchaseCart = async (): Promise<Response> => {
 
     return data;
   } catch {
-    return { sucess: false, text: "unexpected error" };
+    return { success: false, text: "unexpected error" };
   }
 };
