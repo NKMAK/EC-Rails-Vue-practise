@@ -56,7 +56,7 @@ class Api::CartController < ApplicationController
           { 
             id: image.id,
             display_order: image.display_order,
-            image_url: image.image.url
+            image:{url: image.image.url} 
           }
         end
         item_json
@@ -67,7 +67,7 @@ class Api::CartController < ApplicationController
         sucess:true
       }, status: :ok
     else
-      render json: {cart: nil, sucess:false, text: "cart not found"}, status: :not_found
+      render json: {cart: nil, sucess:false, text: "cart not found"}, status: :ok
     end
   end
 
