@@ -60,3 +60,8 @@ export interface Cart {
   updated_at: string;
   cart_items: CartItem[];
 }
+
+export interface RequestAddCartModel {
+  productId: number;
+  quanity: number;
+}
