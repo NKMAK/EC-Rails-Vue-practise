@@ -60,14 +60,15 @@ class Api::CartController < ApplicationController
       end
       
       render json: {
-        cart: product_cart.as_json.merge(cart_items: cart_items_with_images)
+        cart: product_cart.as_json.merge(cart_items: cart_items_with_images),
+        sucess:true
       }, status: :ok
     else
-      render json: {cart: nil}, status: :ok
+      render json: {cart: nil, sucess:false, text: "cart not found"}, status: :not_found
     end
   end
 
-  def delete()
+  def delete
     cart_item_param = params.require(:cart_item).permit(:id)
 
     cart_item_id = cart_item_param[:id].to_i
@@ -80,4 +81,18 @@ class Api::CartController < ApplicationController
       render json: {sucess: false, text: cart_item.errors}, status: :unprocessable_entity
     end
   end
+
+  def purchase
+    product_cart = @current_user.carts.find_by(active: true)
+    if product_cart
+      product_cart.active = false
+      if product_cart.save
+        render json: {sucess: true, text:"purchase"}, stattus: :ok
+      else
+        render json: {sucess: false, text: product_cart.errors}, status: :unprocessable_entity
+      end
+    else
+      render json: {sucess: false, text: "cart not found"}, status: :not_found
+    end
+  end 
 end
