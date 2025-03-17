@@ -67,5 +67,17 @@ class Api::CartController < ApplicationController
     end
   end
 
+  def delete()
+    cart_item_param = params.require(:cart_item).permit(:id)
 
+    cart_item_id = cart_item_param[:id].to_i
+    #ユーザテーブルから紐づいているアクティブなカートを取得してから、カートアイテムを削除する方が安全かも    
+    cart_item = CartItem.find(cart_item_id)
+
+    if cart_item.destroy
+      render json: {sucess: true, text: "delete success"}, status: :ok
+    else
+      render json: {sucess: false, text: cart_item.errors}, status: :unprocessable_entity
+    end
+  end
 end

@@ -16,5 +16,7 @@ Rails.application.routes.draw do
 
     post "addCart" => "cart#add"
     get "getCart" => "cart#get"
+    
+    delete "deleteCartItem" => "cart#delete"
   end
 end
