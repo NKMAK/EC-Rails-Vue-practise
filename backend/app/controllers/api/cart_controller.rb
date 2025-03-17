@@ -7,7 +7,7 @@ class Api::CartController < ApplicationController
     quantity = product_params[:quantity].to_i || 1
     product = Product.find(product_id)
     unless product
-      return render json: { error: 'Product not found' }, status: :not_found 
+      return render json: { sucess: false, text: 'Product not found' }, status: :not_found 
     end
 
 
@@ -18,7 +18,7 @@ class Api::CartController < ApplicationController
 
     if cart_item #update
       if product.stock_quantity < cart_item.quantity + product_params [:quantity].to_i
-        return render json: { error: 'Out of stock' }, status: :unprocessable_entity
+        return render json: { sucess: false, text: 'Out of stock' }, status: :unprocessable_entity
       end
 
       cart_item.quantity += quantity
@@ -26,7 +26,7 @@ class Api::CartController < ApplicationController
       if cart_item.save
         return render json:{sucess: true, text: "quanity change", cart: product_cart.as_json(include: :cart_items)}, status: :ok
       else
-        return render json: {error: cart_item.errors}, status: :unprocessable_entity
+        return render json: {sucess: false, text: cart_item.errors}, status: :unprocessable_entity
       end
     else #create
       cart_item = product_cart.cart_items.new(
@@ -38,7 +38,7 @@ class Api::CartController < ApplicationController
       if cart_item.save
         return render json:{sucess: true, text: "new create", cart: product_cart.as_json(include: :cart_items)}, status: :ok
       else
-        return render json: {error: cart_item.errors}, status: :unprocessable_entity
+        return render json: {sucess: false, text: cart_item.errors}, status: :unprocessable_entity
       end
     end
   end
