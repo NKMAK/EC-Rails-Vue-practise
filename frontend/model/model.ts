@@ -39,7 +39,7 @@ export interface GetProductData {
   product_images: ProductImageData[];
 }
 
-interface CartItem {
+export interface CartItem {
   id: number;
   cart_id: number;
   product_id: number;
