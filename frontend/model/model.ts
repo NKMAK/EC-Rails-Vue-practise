@@ -31,10 +31,32 @@ export interface GetProductData {
   id: number;
   title: string;
   description: string;
-  price: string;
+  price: number;
   stock_quantity: number;
   active: boolean;
   created_at: string;
   updated_at: string;
   product_images: ProductImageData[];
+}
+
+interface CartItem {
+  id: number;
+  cart_id: number;
+  product_id: number;
+  quantity: number;
+  price: number;
+  created_at: string;
+  updated_at: string;
+  product_title: string;
+  product_images: ProductImageData[];
+}
+
+export interface Cart {
+  id: number;
+  user_uuid: string;
+  total_price: number;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+  cart_items: CartItem[];
 }
