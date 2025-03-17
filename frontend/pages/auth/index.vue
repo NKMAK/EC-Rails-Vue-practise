@@ -13,11 +13,17 @@ const tab = ref("login");
 const handleLogin = async (loginData: LoginData) => {
   console.log("ログイン処理", loginData);
   const res = await login(loginData);
+  if (res) {
+    navigateTo("/home");
+  }
 };
 
 const handleRegister = async (signupData: SignupData) => {
   console.log("新規登録処理", signupData);
-  const response = await signup(signupData);
+  const res = await signup(signupData);
+  if (res) {
+    navigateTo("/home");
+  }
 };
 </script>
 
