@@ -16,7 +16,7 @@ onMounted(() => {
 
 const onClickAddCart = async () => {
   const res = await addCart({ productId: props.product.id, quanity: 1 });
-  if (res.sucess) {
+  if (res.success) {
     alert("カートに追加しました。");
   } else {
     alert("カートに追加できませんでした。" + res.text);

@@ -2,7 +2,7 @@ import type { Cart } from "~/model/model";
 
 interface CartResponse {
   cart: Cart;
-  sucess: boolean;
+  success: boolean;
 }
 
 export const gainCart = async (): Promise<Cart | null> => {

@@ -1,7 +1,7 @@
 import type { RequestAddCartModel } from "~/model/model";
 
 interface Response {
-  sucess: boolean;
+  success: boolean;
   text: string;
 }
 
@@ -27,6 +27,6 @@ export const addCart = async (
 
     return data;
   } catch {
-    return { sucess: false, text: "unexpected error" };
+    return { success: false, text: "unexpected error" };
   }
 };
