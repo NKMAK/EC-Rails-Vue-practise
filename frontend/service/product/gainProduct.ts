@@ -6,7 +6,8 @@ interface ProductResponseData {
 
 export const gainProduct = async (
   limit: number,
-  offset: number
+  offset: number,
+  pageChange: boolean
 ): Promise<ProductResponseData> => {
   const runtimeConfig = useRuntimeConfig();
   try {
@@ -20,13 +21,27 @@ export const gainProduct = async (
     if (token) {
       requestHeaders["Cookie"] = "access_token=" + `${token.value}`;
     }
-    const { data, error } = await useFetch<ProductResponseData>(urlString, {
-      method: "GET",
-      headers: requestHeaders,
-      credentials: "include",
-    });
 
-    return { product_data: data.value!.product_data, total: data.value!.total };
+    if (pageChange) {
+      const data = await $fetch<ProductResponseData>(urlString, {
+        method: "GET",
+        headers: requestHeaders,
+        credentials: "include",
+      });
+
+      return { product_data: data.product_data, total: data.total };
+    } else {
+      const { data, error } = await useFetch<ProductResponseData>(urlString, {
+        method: "GET",
+        headers: requestHeaders,
+        credentials: "include",
+      });
+
+      return {
+        product_data: data.value!.product_data,
+        total: data.value!.total,
+      };
+    }
   } catch (e) {
     return { product_data: [], total: 0 };
   }

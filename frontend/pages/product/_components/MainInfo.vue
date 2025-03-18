@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { GetProductData } from "../../../model/model";
+import { addCart } from "~/service/cart/addCart";
 const props = defineProps<{
   product: GetProductData;
 }>();
@@ -12,6 +13,15 @@ onMounted(() => {
     currency: "JPY",
   }).format(Number(props.product.price));
 });
+
+const onClickAddCart = async () => {
+  const res = await addCart({ productId: props.product.id, quanity: 1 });
+  if (res.success) {
+    alert("カートに追加しました。");
+  } else {
+    alert("カートに追加できませんでした。" + res.text);
+  }
+};
 </script>
 
 <template>
@@ -49,6 +59,7 @@ onMounted(() => {
         :disabled="props.product.stock_quantity <= 0"
         variant="flat"
         class="mb-4"
+        @click="onClickAddCart"
       >
         <v-icon left class="mr-2">mdi-cart</v-icon>
         カートに追加

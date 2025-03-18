@@ -1,28 +1,31 @@
 <script setup lang="ts">
 import { gainProduct } from "~/service/product/gainProduct";
 import ProductCard from "./_components/ProductCard.vue";
-import type { GetProductData } from "~/model/model";
 
-const gainProductRef = ref<GetProductData[]>([]);
-const totalProductCntRef = ref<number>(0);
-
-const currentPageRef = ref<number>(1);
+const currentPageRef = ref(1);
 const itemsPerPage = 12;
+const isPageChangeRef = ref(false);
+const offset = computed(() => (currentPageRef.value - 1) * itemsPerPage);
+
+const { data: productResponse } = useAsyncData(
+  "products",
+  () => gainProduct(itemsPerPage, offset.value, isPageChangeRef.value),
+  {
+    watch: [offset],
+  }
+);
+
+const gainProductRef = computed(
+  () => productResponse.value?.product_data || []
+);
+const totalProductCntRef = computed(() => productResponse.value?.total || 0);
 const totalPages = computed(() =>
   Math.ceil(totalProductCntRef.value / itemsPerPage)
 );
 
-const fetchProducts = async (page: number = 1) => {
-  const offset = (page - 1) * itemsPerPage;
-
-  const { product_data, total } = await gainProduct(itemsPerPage, offset);
-  gainProductRef.value = product_data;
-  totalProductCntRef.value = total;
-};
-await fetchProducts(1);
 const handlePageChange = (page: number) => {
+  isPageChangeRef.value = true;
   currentPageRef.value = page;
-  fetchProducts(page);
 };
 </script>
 
